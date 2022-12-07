@@ -85,7 +85,7 @@ function displayForecast() {
   if (CORSObject != null) {
     CORSObject.open(
       "GET",
-      "http://forecast.weather.gov/MapClick.php?lat=" +
+      "https://forecast.weather.gov/MapClick.php?lat=" +
         lat +
         "&lon=" +
         lon +
