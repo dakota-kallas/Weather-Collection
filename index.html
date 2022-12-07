@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weather Forecast</title>
+        <link href="style.css" rel="stylesheet">
+        <link rel="icon" href="images/cloud.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&family=Sacramento&display=swap" rel="stylesheet">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <div id="header">
+            <img class="logo" src="images/cloud.png" alt="Logo" />
+            <h1>What's the Weather?</h1>
+        </div>
+        <div class="container">
+            <div id="selectionContainer">
+                <label for="city-select">Select a City:</label>
+                <select id="city-select" name="cities">
+                    <option selected hidden>-- Select a city --</option>
+                    <optgroup label="Wisconsin">
+                        <option value="lacrosse">La Crosse</option>
+                        <option value="milwaukee">Milwaukee</option>
+                        <option value="madison">Madison</option>
+                    </optgroup>
+                    <optgroup label="Minnesota">
+                        <option value="stpaul">St. Paul</option>
+                        <option value="duluth">Duluth</option>
+                        <option value="rochester">Rochester</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div id="content" class="container"></div>
+    </body>
+</html>

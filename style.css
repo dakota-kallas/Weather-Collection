@@ -1,0 +1,159 @@
+:root {
+  --primary: #222222;
+  --secondary: #434242;
+  --alternate: #f3efe0;
+  --light: #53b0db;
+  --extralight: #8ac6d5;
+  --lightsubstitute: #ecebeb;
+  --substitute: #cfcfcf;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", serif;
+  background-color: var(--alternate);
+  overflow: auto;
+  position: relative;
+  font-size: 14pt;
+  margin: 0;
+}
+
+#header {
+  background-color: var(--primary);
+  text-align: center;
+  color: var(--light);
+  padding: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#header h1 {
+  margin: 5px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+}
+
+.icon {
+  margin-left: 7px;
+  width: 17px;
+  height: 17px;
+}
+
+#selectionContainer {
+  background-color: var(--secondary);
+  color: var(--light);
+  width: fit-content;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+select {
+  background-color: var(--primary);
+  border-radius: 5px;
+  font-size: 14pt;
+  color: var(--light);
+  margin-left: 5px;
+}
+
+optgroup {
+  color: var(--light);
+}
+option {
+  color: var(--substitute);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.details {
+  margin: 30px;
+}
+
+#temp {
+  font-size: 40pt;
+}
+
+#weather-img {
+  border-radius: 35px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(
+    to right,
+    var(--secondary),
+    var(--primary),
+    var(--secondary)
+  );
+}
+
+table {
+  border-spacing: 0;
+  border-radius: 15px;
+  min-width: 450px;
+  box-shadow: 0 5px 11px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 5px 11px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 5px 11px rgba(0, 0, 0, 0.05);
+}
+
+th {
+  padding: 5px 20px;
+}
+
+td {
+  padding: 5px 20px;
+}
+
+thead {
+  text-align: center;
+  background-image: linear-gradient(
+    to right,
+    var(--extralight),
+    var(--light),
+    var(--extralight)
+  );
+}
+
+tbody {
+  background-image: linear-gradient(
+    to right,
+    var(--lightsubstitute),
+    var(--substitute),
+    var(--lightsubstitute)
+  );
+}
+
+thead th {
+  font-size: 20pt;
+  padding-top: 20px;
+}
+
+thead td {
+  font-size: 16pt;
+}
+
+tbody th {
+  text-align: right;
+}
+
+tbody td {
+  text-align: left;
+}
+
+.last-cell {
+  padding-bottom: 20px;
+}
+
+.first-cell {
+  padding-top: 20px;
+  text-align: center;
+  max-width: 300px;
+}
