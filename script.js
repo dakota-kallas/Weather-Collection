@@ -1,40 +1,17 @@
-let madison = {
-  lat: "43.14",
-  lon: "-89.35",
-};
-
-let lacrosse = {
-  lat: "43.8",
-  lon: "-91.2",
-};
-
-let milwaukee = {
-  lat: "42.96",
-  lon: "-87.9",
-};
-
-let stpaul = {
-  lat: "44.93",
-  lon: "-93.06",
-};
-
-let rochester = {
-  lat: "43.9",
-  lon: "-92.49",
-};
-
-let duluth = {
-  lat: "46.72",
-  lon: "-92.04",
+const cities = {
+  lacrosse: { lat: "43.8", lon: "-91.2", cityName: "La Crosse, WI" },
+  madison: { lat: "43.14", lon: "-89.35", cityName: "Madison, WI" },
+  milwaukee: { lat: "42.96", lon: "-87.9", cityName: "Milwaukee, WI" },
+  stpaul: { lat: "44.93", lon: "-93.06", cityName: "St. Paul, MN" },
+  duluth: { lat: "46.72", lon: "-92.04", cityName: "Duluth, MN" },
+  rochester: { lat: "43.9", lon: "-92.49", cityName: "Rochester, MN" },
 };
 
 let citySelect = document.getElementById("city-select");
-citySelect.addEventListener("change", function () {
-  displayForecast();
-});
+citySelect.addEventListener("change", displayForecast);
 
 function displayForecast() {
-  var CORSObject = null;
+  let CORSObject = null;
 
   if (typeof XMLHttpRequest != undefined) {
     CORSObject = new XMLHttpRequest();
@@ -42,53 +19,16 @@ function displayForecast() {
     CORSObject = new XDomainRequest();
   }
 
-  var selectedCity = citySelect.value;
-  var lon, lat;
-  var cityName;
-  switch (selectedCity) {
-    case "lacrosse":
-      lon = lacrosse.lon;
-      lat = lacrosse.lat;
-      cityName = "La Crosse, WI";
-      break;
-    case "madison":
-      lon = madison.lon;
-      lat = madison.lat;
-      cityName = "Madison, WI";
-      break;
-    case "milwaukee":
-      lon = milwaukee.lon;
-      lat = milwaukee.lat;
-      cityName = "Milwaukee, WI";
-      break;
-    case "stpaul":
-      lon = stpaul.lon;
-      lat = stpaul.lat;
-      cityName = "St. Paul, MN";
-      break;
-    case "duluth":
-      lon = duluth.lon;
-      lat = duluth.lat;
-      cityName = "Duluth, MN";
-      break;
-    case "rochester":
-      lon = rochester.lon;
-      lat = rochester.lat;
-      cityName = "Rochester, MN";
-      break;
-    default:
-      lat = 0;
-      lon = 0;
-      cityName = "";
-  }
+  const selectedCity = citySelect.value;
+  const city = cities[selectedCity];
 
   if (CORSObject != null) {
     CORSObject.open(
       "GET",
       "https://forecast.weather.gov/MapClick.php?lat=" +
-        lat +
+        city.lat +
         "&lon=" +
-        lon +
+        city.lon +
         "&FcstType=json"
     );
     CORSObject.onreadystatechange = function () {
@@ -97,7 +37,7 @@ function displayForecast() {
         return;
       }
       var jsonreponse = JSON.parse(data);
-      var city = jsonreponse["currentobservation"];
+      var currentobservation = jsonreponse["currentobservation"];
       var data = jsonreponse["data"];
       var icons = data.iconLink;
 
@@ -112,7 +52,7 @@ function displayForecast() {
 
       var headingRow = document.createElement("tr");
       var heading = document.createElement("th");
-      var headingText = document.createTextNode(cityName);
+      var headingText = document.createTextNode(city.cityName);
       heading.appendChild(headingText);
       heading.setAttribute(
         "style",
@@ -167,7 +107,7 @@ function displayForecast() {
       tempData.setAttribute("colspan", "2");
       tempData.setAttribute("style", "padding-top: 0;");
       tempData.setAttribute("id", "temp");
-      var tempDataText = document.createTextNode(city.Temp + "°");
+      var tempDataText = document.createTextNode(currentobservation.Temp + "°");
       tempData.appendChild(tempDataText);
       tempRow.appendChild(tempData);
 
@@ -192,7 +132,10 @@ function displayForecast() {
         high = low;
         low = temp;
       }
-      high = parseInt(high) > parseInt(city.Temp) ? high : city.Temp;
+      high =
+        parseInt(high) > parseInt(currentobservation.Temp)
+          ? high
+          : currentobservation.Temp;
       var highlowDataText = document.createTextNode(
         "H:" + high + "°" + " L:" + low + "°"
       );
@@ -217,23 +160,37 @@ function displayForecast() {
         " %"
       );
 
-      addTableInfo(tbody, "Wind", "images/wind.png", city.Winds, " mph");
+      addTableInfo(
+        tbody,
+        "Wind",
+        "images/wind.png",
+        currentobservation.Winds,
+        " mph"
+      );
 
       addTableInfo(
         tbody,
         "Wind Chill",
         "images/windchill.png",
-        city.WindChill != "NA" ? city.WindChill : city.Temp,
+        currentobservation.WindChill != "NA"
+          ? currentobservation.WindChill
+          : currentobservation.Temp,
         "° F"
       );
 
-      addTableInfo(tbody, "Dew Point", "images/dew.png", city.Dewp, "° F");
+      addTableInfo(
+        tbody,
+        "Dew Point",
+        "images/dew.png",
+        currentobservation.Dewp,
+        "° F"
+      );
 
       addTableInfo(
         tbody,
         "Visibility",
         "images/visibility.png",
-        city.Visibility,
+        currentobservation.Visibility,
         " mi"
       );
 
@@ -241,7 +198,7 @@ function displayForecast() {
         tbody,
         "Elevation",
         "images/elevation.png",
-        city.elev,
+        currentobservation.elev,
         " ft",
         true
       );
